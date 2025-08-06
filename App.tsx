@@ -103,26 +103,21 @@ function App(): JSX.Element {
         <ScrollView
           contentInsetAdjustmentBehavior="automatic"
           style={backgroundStyle}>
-          <Header />
+          <Section title="Welcome to ConnectX SDK">
+            This is a sample app to demonstrate the ConnectX SDK functionalities.
+          </Section>
           <View
             style={{
               backgroundColor: isDarkMode ? Colors.black : Colors.white,
+              justifyContent: 'space-between',
+              alignItems: 'stretch',
+              padding: 20,
+              gap: 10,
             }}>
-            <Button title="Get Unknown ID" onPress={openChat} />
-            <Section title="Step One">
-              Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-              screen and then come back to see your edits.
-            </Section>
-            <Section title="See Your Changes">
-              <ReloadInstructions />
-            </Section>
-            <Section title="Debug">
-              <DebugInstructions />
-            </Section>
-            <Section title="Learn More">
-              Read the docs to discover what to do next:
-            </Section>
-            <LearnMoreLinks />
+            <Button title="Get Unknown ID" onPress={fetchUnknownId} />
+
+            <Button title="Open Live Chat" onPress={openChat} />
+
           </View>
         </ScrollView>
       </SafeAreaView>
