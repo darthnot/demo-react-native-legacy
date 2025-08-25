@@ -5,7 +5,7 @@
  * @format
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 import type { PropsWithChildren } from 'react';
 import {
   Alert,
@@ -15,6 +15,7 @@ import {
   StatusBar,
   StyleSheet,
   Text,
+  TextInput,
   useColorScheme,
   View,
 } from 'react-native';
@@ -60,6 +61,7 @@ function Section({ children, title }: SectionProps): JSX.Element {
 }
 
 function App(): JSX.Element {
+  const [inputValue, setInputValue] = useState('');
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
@@ -82,14 +84,24 @@ function App(): JSX.Element {
   };
 
   const openChat = () => {
+    // LiveChat.show({
+    //   token:
+    //     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImNvbm5lY3R4LmRldkBnbWFpbC5jb20iLCJ1c2VySWQiOiJuQ0VxVXhrcFJ3VmxxV1hSaWpBWSIsInN1YiI6Im5DRXFVeGtwUndWbHFXWFJpakFZIiwib3JnYW5pemVJZCI6IjAwMDBPcmdSQW5kRENvbm5lY3RYIiwic3RheUxvZ2luIjpmYWxzZSwiY3VzdG9tVG9rZW4iOiJleUpoYkdjaU9pSlNVekkxTmlJc0luUjVjQ0k2SWtwWFZDSjkuZXlKaGRXUWlPaUpvZEhSd2N6b3ZMMmxrWlc1MGFYUjVkRzl2Ykd0cGRDNW5iMjluYkdWaGNHbHpMbU52YlM5bmIyOW5iR1V1YVdSbGJuUnBkSGt1YVdSbGJuUnBkSGwwYjI5c2EybDBMbll4TGtsa1pXNTBhWFI1Vkc5dmJHdHBkQ0lzSW1saGRDSTZNVGN6TmpRNE9UZzFOeXdpWlhod0lqb3hOek0yTkRrek5EVTNMQ0pwYzNNaU9pSm1hWEpsWW1GelpTMWhaRzFwYm5Oa2F5MW5aek00TWtCamIyNXVaV04wTFhndGNISnZaSFZqZEdsdmJpNXBZVzB1WjNObGNuWnBZMlZoWTJOdmRXNTBMbU52YlNJc0luTjFZaUk2SW1acGNtVmlZWE5sTFdGa2JXbHVjMlJyTFdkbk16Z3lRR052Ym01bFkzUXRlQzF3Y205a2RXTjBhVzl1TG1saGJTNW5jMlZ5ZG1salpXRmpZMjkxYm5RdVkyOXRJaXdpZFdsa0lqb2lZMjl1Ym1WamRIZ3VaR1YyUUdkdFlXbHNMbU52YlNJc0ltTnNZV2x0Y3lJNmV5SnZjbWRKWkNJNklqQXdNREJQY21kU1FXNWtSRU52Ym01bFkzUllJbjE5LlN5b3hzZjRqUlh1RkxOM2laa2ZBSDlOdGJKRGpFd3EwdWpkV3d5ZHE1cnQ4a1JCTlZncFQwWjVSX3VpSENZWXFSVVlDeFJTZjlSWmlEd0JZR3padGR4dFEweXhPd05zTVhGYVludHhidTFmQXBKLVIySW5pOHRTdjJ4U2RrSmVIMml4aHR4ajY5R29zbV9CUWM3Q2FWOVpQX0VlZnlGUmk3UklRN1pNNTVfZG9RSnM5NnRWTDNsUXROemtZS3owMVBZbEhLeTB4YzFoXzZlS3V2UEJPQW9KX1RpdjRZTHM3VW5KbmpVNGpOUktLS29Ud2VUZk1qeU10ejc5SEo1d0loeDRsM3VuUGwzQzkxcFhYVFU1N2dnSGtvMUVMNEFLbUc2SjVaRERzd19GUUstajdlMVBQYkNSTkRsTUhVd0FaNGNNMGp0ZHpzc3M4ZUduTHBwZzBfZyIsImltYWdlIjoiaHR0cHM6Ly9maXJlYmFzZXN0b3JhZ2UuZ29vZ2xlYXBpcy5jb20vdjAvYi9jb25uZWN0LXgtcHJvZHVjdGlvbi5hcHBzcG90LmNvbS9vL1VzZXJzJTJGbkNFcVV4a3BSd1ZscVdYUmlqQVklMkZVc2Vyc19uQ0VxVXhrcFJ3VmxxV1hSaWpBWV8yOTIxODc2MDVfNDU2NjExMDA5ODAwMzIxXzMxNjkxNDIxMTEzNzM1NTkwMzlfbi5qcGVnP2FsdD1tZWRpYSZ0b2tlbj0zZWU4M2NkOC01OTdmLTQyZWQtOGQyNy04NDk2NzM1ZTQ4ZjkiLCJkaXNwbGF5TmFtZSI6IlN1cGVyIEFkbWluIPCfjoPwn5G7IiwiYXBwSWQiOiIxMjMxMjNhc2Rhc2Rhc2QiLCJpYXQiOjE3MzY0OTIwODEsImV4cCI6MzE3MjgwOTM0NDgxfQ.E_Bh36PXkJ61dLp31AX4vD91OYDl3R37FzS3qFFqMrI',
+    //   orgId: '0000OrgRAndDConnectX',
+    //   channelId: '9318254639',
+    //   customHeader: undefined,
+    //   // Pass the specific customer's details
+    //   externalValue: 'Punn',
+    // });
+
     LiveChat.show({
       token:
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImNvbm5lY3R4LmRldkBnbWFpbC5jb20iLCJ1c2VySWQiOiJuQ0VxVXhrcFJ3VmxxV1hSaWpBWSIsInN1YiI6Im5DRXFVeGtwUndWbHFXWFJpakFZIiwib3JnYW5pemVJZCI6IjAwMDBPcmdSQW5kRENvbm5lY3RYIiwic3RheUxvZ2luIjpmYWxzZSwiY3VzdG9tVG9rZW4iOiJleUpoYkdjaU9pSlNVekkxTmlJc0luUjVjQ0k2SWtwWFZDSjkuZXlKaGRXUWlPaUpvZEhSd2N6b3ZMMmxrWlc1MGFYUjVkRzl2Ykd0cGRDNW5iMjluYkdWaGNHbHpMbU52YlM5bmIyOW5iR1V1YVdSbGJuUnBkSGt1YVdSbGJuUnBkSGwwYjI5c2EybDBMbll4TGtsa1pXNTBhWFI1Vkc5dmJHdHBkQ0lzSW1saGRDSTZNVGN6TmpRNE9UZzFOeXdpWlhod0lqb3hOek0yTkRrek5EVTNMQ0pwYzNNaU9pSm1hWEpsWW1GelpTMWhaRzFwYm5Oa2F5MW5aek00TWtCamIyNXVaV04wTFhndGNISnZaSFZqZEdsdmJpNXBZVzB1WjNObGNuWnBZMlZoWTJOdmRXNTBMbU52YlNJc0luTjFZaUk2SW1acGNtVmlZWE5sTFdGa2JXbHVjMlJyTFdkbk16Z3lRR052Ym01bFkzUXRlQzF3Y205a2RXTjBhVzl1TG1saGJTNW5jMlZ5ZG1salpXRmpZMjkxYm5RdVkyOXRJaXdpZFdsa0lqb2lZMjl1Ym1WamRIZ3VaR1YyUUdkdFlXbHNMbU52YlNJc0ltTnNZV2x0Y3lJNmV5SnZjbWRKWkNJNklqQXdNREJQY21kU1FXNWtSRU52Ym01bFkzUllJbjE5LlN5b3hzZjRqUlh1RkxOM2laa2ZBSDlOdGJKRGpFd3EwdWpkV3d5ZHE1cnQ4a1JCTlZncFQwWjVSX3VpSENZWXFSVVlDeFJTZjlSWmlEd0JZR3padGR4dFEweXhPd05zTVhGYVludHhidTFmQXBKLVIySW5pOHRTdjJ4U2RrSmVIMml4aHR4ajY5R29zbV9CUWM3Q2FWOVpQX0VlZnlGUmk3UklRN1pNNTVfZG9RSnM5NnRWTDNsUXROemtZS3owMVBZbEhLeTB4YzFoXzZlS3V2UEJPQW9KX1RpdjRZTHM3VW5KbmpVNGpOUktLS29Ud2VUZk1qeU10ejc5SEo1d0loeDRsM3VuUGwzQzkxcFhYVFU1N2dnSGtvMUVMNEFLbUc2SjVaRERzd19GUUstajdlMVBQYkNSTkRsTUhVd0FaNGNNMGp0ZHpzc3M4ZUduTHBwZzBfZyIsImltYWdlIjoiaHR0cHM6Ly9maXJlYmFzZXN0b3JhZ2UuZ29vZ2xlYXBpcy5jb20vdjAvYi9jb25uZWN0LXgtcHJvZHVjdGlvbi5hcHBzcG90LmNvbS9vL1VzZXJzJTJGbkNFcVV4a3BSd1ZscVdYUmlqQVklMkZVc2Vyc19uQ0VxVXhrcFJ3VmxxV1hSaWpBWV8yOTIxODc2MDVfNDU2NjExMDA5ODAwMzIxXzMxNjkxNDIxMTEzNzM1NTkwMzlfbi5qcGVnP2FsdD1tZWRpYSZ0b2tlbj0zZWU4M2NkOC01OTdmLTQyZWQtOGQyNy04NDk2NzM1ZTQ4ZjkiLCJkaXNwbGF5TmFtZSI6IlN1cGVyIEFkbWluIPCfjoPwn5G7IiwiYXBwSWQiOiIxMjMxMjNhc2Rhc2Rhc2QiLCJpYXQiOjE3MzY0OTIwODEsImV4cCI6MzE3MjgwOTM0NDgxfQ.E_Bh36PXkJ61dLp31AX4vD91OYDl3R37FzS3qFFqMrI',
-      orgId: '0000OrgRAndDConnectX',
-      channelId: '9318254639',
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRjY2NjdWF0QGNvbm5lY3QteC50ZWNoIiwidXNlcklkIjoiZThkUzlpV0w1TzZnSG5YOVpydFYiLCJzdWIiOiJlOGRTOWlXTDVPNmdIblg5WnJ0ViIsIm9yZ2FuaXplSWQiOiJRN1F2ZVRqZDZMeWE1WGRocHlFVCIsInN0YXlMb2dpbiI6ZmFsc2UsImN1c3RvbVRva2VuIjoiZXlKaGJHY2lPaUpTVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SmhkV1FpT2lKb2RIUndjem92TDJsa1pXNTBhWFI1ZEc5dmJHdHBkQzVuYjI5bmJHVmhjR2x6TG1OdmJTOW5iMjluYkdVdWFXUmxiblJwZEhrdWFXUmxiblJwZEhsMGIyOXNhMmwwTG5ZeExrbGtaVzUwYVhSNVZHOXZiR3RwZENJc0ltbGhkQ0k2TVRjME9UVTBPVFV5TVN3aVpYaHdJam94TnpRNU5UVXpNVEl4TENKcGMzTWlPaUptYVhKbFltRnpaUzFoWkcxcGJuTmtheTFuWnpNNE1rQmpiMjV1WldOMExYZ3RjSEp2WkhWamRHbHZiaTVwWVcwdVozTmxjblpwWTJWaFkyTnZkVzUwTG1OdmJTSXNJbk4xWWlJNkltWnBjbVZpWVhObExXRmtiV2x1YzJSckxXZG5Nemd5UUdOdmJtNWxZM1F0ZUMxd2NtOWtkV04wYVc5dUxtbGhiUzVuYzJWeWRtbGpaV0ZqWTI5MWJuUXVZMjl0SWl3aWRXbGtJam9pZEdOalkyTjFZWFJBWTI5dWJtVmpkQzE0TG5SbFkyZ2lMQ0pqYkdGcGJYTWlPbnNpYjNKblNXUWlPaUpSTjFGMlpWUnFaRFpNZVdFMVdHUm9jSGxGVkNKOWZRLmNfM29CTFpCT2tITl9UUFFIMnJnX29GdkY1bmNheVA4b0lEd0hUQXZ4bHFORWppT1VEckQzaXA4X3dNLVpnbTlnN1BLRjk0YWlwMjQwa19vVnZHLTNkSTE4eTRjRHAtek96bGNTTXc0Ui0yZTFpZldWTDY3Y0RjSlc4bzhOREFvZ0F5UW9MUEk5RHJlUnozWnViaWc1ZEZWQ25zR1BiNDF6ZEsxbkRtZHZiUV9EQ0k2Rks2cl9SVWFLLW8zd0lWOGdXbnRmTFNqZHBfS1lSVWczeTdIR21WRG1xZEZ0d241X3pHcWlELTVjR3RFX3FVd2RZNExJSFZyNGd2STBaSjRaaExSamZfT1dqM1lUWTA5T0RfaWNYbXFGaklJY0o2UFVkNnNKakhmTkVpWkppQUxvMlAtRHJGTVN4S2loZDRqZnhXWWlEWGFkYnotRm9heTkwazRWZyIsImltYWdlIjoiIiwiZGlzcGxheU5hbWUiOiJTdXBlciBBZG1pbiIsImFwcElkIjoiT25lIEJhbmdrb2sgU3VwZXIgYXBwIiwiaWF0IjoxNzQ5NTQ5NTk2LCJleHAiOjMxNzI5Mzk5MTk5Nn0.-WXqel2SJWe_bXfnJtsWp6ziYev5MVSXvMj8OZrKj5U',
+      orgId: 'Q7QveTjd6Lya5XdhpyET',
+      channelId: '5556874596',
       customHeader: undefined,
       // Pass the specific customer's details
-      externalValue: 'Punn',
+      externalValue: inputValue,
     });
   };
 
@@ -104,7 +116,8 @@ function App(): JSX.Element {
           contentInsetAdjustmentBehavior="automatic"
           style={backgroundStyle}>
           <Section title="Welcome to ConnectX SDK">
-            This is a sample app to demonstrate the ConnectX SDK functionalities.
+            This is a sample app to demonstrate the ConnectX SDK
+            functionalities.
           </Section>
           <View
             style={{
@@ -115,9 +128,14 @@ function App(): JSX.Element {
               gap: 10,
             }}>
             <Button title="Get Unknown ID" onPress={fetchUnknownId} />
-
+            <Text style={styles.sectionTitle}>Live Chat</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="Input Profile ID"
+              value={inputValue} // bind state
+              onChangeText={text => setInputValue(text)} // update state
+            />
             <Button title="Open Live Chat" onPress={openChat} />
-
           </View>
         </ScrollView>
       </SafeAreaView>
@@ -129,6 +147,14 @@ const styles = StyleSheet.create({
   sectionContainer: {
     marginTop: 32,
     paddingHorizontal: 24,
+  },
+
+  input: {
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    paddingHorizontal: 10,
+    marginBottom: 10,
   },
   sectionTitle: {
     fontSize: 24,
